@@ -164,11 +164,6 @@
         it("should compare numbers properly when true is expected", function() {
           return expect(e.evaluate(21, "startsWith", 2)).toBeTruthy();
         });
-        it("should compare dates properly when true is expected", function() {
-          var date;
-          date = new Date(Date.parse('2012-12-20'));
-          return expect(e.evaluate(date, "startsWith", "Wed")).toBeTruthy();
-        });
         it("should compare arrays properly and return true if the first element of the array matches the comparator", function() {
           return expect(e.evaluate(["1", "2", "3"], "startsWith", "1")).toBeTruthy();
         });
@@ -177,11 +172,6 @@
         });
         it("should compare numbers properly when false is expected", function() {
           return expect(e.evaluate(21, "startsWith", 1)).toBeFalsy();
-        });
-        it("should compare dates properlywhen false is expected", function() {
-          var date;
-          date = new Date(Date.parse('2012-12-20'));
-          return expect(e.evaluate(date, "startsWith", "Q")).toBeFalsy();
         });
         return it("should compare arrays properly and return false if the first element of the array does not match the comparator", function() {
           return expect(e.evaluate(["3", "2", "1"], "startsWith", "1")).toBeFalsy();
@@ -194,11 +184,6 @@
         it("should compare numbers properly when true is expected", function() {
           return expect(e.evaluate(21, "contains", 2)).toBeTruthy();
         });
-        it("should compare dates properly when true is expected", function() {
-          var date;
-          date = new Date(Date.parse('2012-12-20'));
-          return expect(e.evaluate(date, "contains", "2012")).toBeTruthy();
-        });
         it("should compare arrays properly and return true if the any elements of the array matches the comparator", function() {
           return expect(e.evaluate(["1", "2", "3"], "contains", "1")).toBeTruthy();
         });
@@ -207,11 +192,6 @@
         });
         it("should compare numbers properly when false is expected", function() {
           return expect(e.evaluate(21, "contains", 3)).toBeFalsy();
-        });
-        it("should compare dates properlywhen false is expected", function() {
-          var date;
-          date = new Date(Date.parse('2011-12-20'));
-          return expect(e.evaluate(date, "contains", "2012")).toBeFalsy();
         });
         return it("should compare arrays properly and return false if no elements of the array does not match the comparator", function() {
           return expect(e.evaluate(["3", "2", "1"], "contains", "4")).toBeFalsy();

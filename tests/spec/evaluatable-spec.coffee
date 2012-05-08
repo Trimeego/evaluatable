@@ -153,10 +153,6 @@ describe "Evaluatable", ->
       it  "should compare numbers properly when true is expected", ->
         expect(e.evaluate 21, "startsWith", 2).toBeTruthy()
 
-      it  "should compare dates properly when true is expected", ->
-        date = new Date(Date.parse('2012-12-20'))
-        expect(e.evaluate date, "startsWith", "Wed").toBeTruthy()
-
       it  "should compare arrays properly and return true if the first element of the array matches the comparator", ->
         expect(e.evaluate ["1", "2", "3"], "startsWith", "1").toBeTruthy()
 
@@ -166,12 +162,9 @@ describe "Evaluatable", ->
       it  "should compare numbers properly when false is expected", ->
         expect(e.evaluate 21, "startsWith", 1).toBeFalsy()
 
-      it  "should compare dates properlywhen false is expected", ->
-        date = new Date(Date.parse('2012-12-20'))
-        expect(e.evaluate date, "startsWith", "Q").toBeFalsy()
-
       it  "should compare arrays properly and return false if the first element of the array does not match the comparator", ->
         expect(e.evaluate ["3", "2", "1"], "startsWith", "1").toBeFalsy()
+
 
     describe "contains", ->
 
@@ -181,10 +174,6 @@ describe "Evaluatable", ->
       it  "should compare numbers properly when true is expected", ->
         expect(e.evaluate 21, "contains", 2).toBeTruthy()
 
-      it  "should compare dates properly when true is expected", ->
-        date = new Date(Date.parse('2012-12-20'))
-        expect(e.evaluate date, "contains", "2012").toBeTruthy()
-
       it  "should compare arrays properly and return true if the any elements of the array matches the comparator", ->
         expect(e.evaluate ["1", "2", "3"], "contains", "1").toBeTruthy()
 
@@ -193,10 +182,6 @@ describe "Evaluatable", ->
 
       it  "should compare numbers properly when false is expected", ->
         expect(e.evaluate 21, "contains", 3).toBeFalsy()
-
-      it  "should compare dates properlywhen false is expected", ->
-        date = new Date(Date.parse('2011-12-20'))
-        expect(e.evaluate date, "contains", "2012").toBeFalsy()
 
       it  "should compare arrays properly and return false if no elements of the array does not match the comparator", ->
         expect(e.evaluate ["3", "2", "1"], "contains", "4").toBeFalsy()      
