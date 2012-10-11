@@ -65,7 +65,7 @@
 
   matchType = (a, b) ->
     ret = b
-    if a.constructor.name isnt b.constructor.name
+    if a and b and (a.constructor.name isnt b.constructor.name)
       switch a.constructor.name
         when "Number"
           n = Number(b)
@@ -90,20 +90,24 @@
 
 
     valueForKeyPath: (key) =>
-
-      levels = key.split "."
-      root = levels[0]
-      if root and root is 'evaluatable'
-        nextLevel = levels[1..].join('.')
-        # this is an item that evaluates to a named value, such as "today"
-        @evaluatables[nextLevel].call()  
-      else  
-        ret = @kvc(key, @super)    
-        if ret and ret.constructor.name is "Array"
-          _flatten(ret)
-        else
-          ret
-
+      if key.split
+        levels = key.split "."
+        root = levels[0]
+        if root and root is 'evaluatable'
+          nextLevel = levels[1..].join('.')
+          # this is an item that evaluates to a named value, such as "today"
+          @evaluatables[nextLevel].call()  
+        else  
+          ret = @kvc(key, @super)    
+          if ret and ret.constructor.name is "Array"
+            _flatten(ret)
+          else
+            if not ret
+              null
+            else
+              ret
+      else
+        null
 
     kvc: (key, object, lvl) =>
       lvl ?= 1
@@ -245,8 +249,6 @@
       if conditionSet.aggregator is "any"
         return (ret for ret in returns when ret).length > 0
       else
-        console.log "condition all" 
-        console.log returns
         return (ret for ret in returns when not ret).length is 0
 
 
