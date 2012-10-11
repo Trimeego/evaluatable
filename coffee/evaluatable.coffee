@@ -90,7 +90,7 @@
 
 
     valueForKeyPath: (key) =>
-      if key.split
+      if key and key.split
         levels = key.split "."
         root = levels[0]
         if root and root is 'evaluatable'

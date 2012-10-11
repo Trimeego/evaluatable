@@ -153,7 +153,7 @@
 
       Evaluatable.prototype.valueForKeyPath = function(key) {
         var levels, nextLevel, ret, root;
-        if (key.split) {
+        if (key && key.split) {
           levels = key.split(".");
           root = levels[0];
           if (root && root === 'evaluatable') {
