@@ -285,10 +285,12 @@
       Evaluatable.prototype.any = function(keyPath, operator, value) {
         var arr, item, _i, _len;
         arr = this.valueForKeyPath(keyPath);
-        for (_i = 0, _len = arr.length; _i < _len; _i++) {
-          item = arr[_i];
-          if (this.evaluate(item, operator, value)) {
-            return true;
+        if (arr) {
+          for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            item = arr[_i];
+            if (this.evaluate(item, operator, value)) {
+              return true;
+            }
           }
         }
         return false;
@@ -297,10 +299,12 @@
       Evaluatable.prototype.all = function(keyPath, operator, value) {
         var arr, item, _i, _len;
         arr = this.valueForKeyPath(keyPath);
-        for (_i = 0, _len = arr.length; _i < _len; _i++) {
-          item = arr[_i];
-          if (!this.evaluate(item, operator, value)) {
-            return false;
+        if (arr) {
+          for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            item = arr[_i];
+            if (!this.evaluate(item, operator, value)) {
+              return false;
+            }
           }
         }
         return true;
@@ -309,10 +313,12 @@
       Evaluatable.prototype.none = function(keyPath, operator, value) {
         var arr, item, _i, _len;
         arr = this.valueForKeyPath(keyPath);
-        for (_i = 0, _len = arr.length; _i < _len; _i++) {
-          item = arr[_i];
-          if (this.evaluate(item, operator, value)) {
-            return false;
+        if (arr) {
+          for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            item = arr[_i];
+            if (this.evaluate(item, operator, value)) {
+              return false;
+            }
           }
         }
         return true;
@@ -321,55 +327,65 @@
       Evaluatable.prototype.sum = function(keyPath, operator, value) {
         var arr, item, total, _i, _len;
         arr = this.valueForKeyPath(keyPath);
-        total = 0;
-        for (_i = 0, _len = arr.length; _i < _len; _i++) {
-          item = arr[_i];
-          total += item;
+        if (arr) {
+          total = 0;
+          for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            item = arr[_i];
+            total += item;
+          }
+          return this.evaluate(total, operator, value);
         }
-        return this.evaluate(total, operator, value);
       };
 
       Evaluatable.prototype.min = function(keyPath, operator, value) {
         var arr, item, min, _i, _len;
         arr = this.valueForKeyPath(keyPath);
-        min = null;
-        for (_i = 0, _len = arr.length; _i < _len; _i++) {
-          item = arr[_i];
-          if (!min || min > item) {
-            min = item;
+        if (arr) {
+          min = null;
+          for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            item = arr[_i];
+            if (!min || min > item) {
+              min = item;
+            }
           }
+          return this.evaluate(min, operator, value);
         }
-        return this.evaluate(min, operator, value);
       };
 
       Evaluatable.prototype.max = function(keyPath, operator, value) {
         var arr, item, max, _i, _len;
         arr = this.valueForKeyPath(keyPath);
-        max = null;
-        for (_i = 0, _len = arr.length; _i < _len; _i++) {
-          item = arr[_i];
-          if (!max || max < item) {
-            max = item;
+        if (arr) {
+          max = null;
+          for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            item = arr[_i];
+            if (!max || max < item) {
+              max = item;
+            }
           }
+          return this.evaluate(max, operator, value);
         }
-        return this.evaluate(max, operator, value);
       };
 
       Evaluatable.prototype.count = function(keyPath, operator, value) {
         var arr;
-        arr = this.valueForKeyPath(keyPath);
-        return this.evaluate(arr.length, operator, value);
+        if (arr) {
+          arr = this.valueForKeyPath(keyPath);
+          return this.evaluate(arr.length, operator, value);
+        }
       };
 
       Evaluatable.prototype.average = function(keyPath, operator, value) {
         var arr, item, total, _i, _len;
         arr = this.valueForKeyPath(keyPath);
-        total = 0;
-        for (_i = 0, _len = arr.length; _i < _len; _i++) {
-          item = arr[_i];
-          total += item;
+        if (arr) {
+          total = 0;
+          for (_i = 0, _len = arr.length; _i < _len; _i++) {
+            item = arr[_i];
+            total += item;
+          }
+          return this.evaluate(total / arr.length, operator, value);
         }
-        return this.evaluate(total / arr.length, operator, value);
       };
 
       Evaluatable.prototype.evaluateConditionSet = function(conditionSet) {

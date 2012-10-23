@@ -186,55 +186,63 @@
 
     any: (keyPath, operator, value) =>
       arr = @valueForKeyPath(keyPath)
-      for item in arr
-        if @evaluate(item, operator, value) 
-          return true 
+      if arr
+        for item in arr
+          if @evaluate(item, operator, value) 
+            return true 
 
       false
 
     all:  (keyPath, operator, value) =>
       arr = @valueForKeyPath(keyPath)
-      for item in arr
-        if not @evaluate(item, operator, value) 
-          return false 
+      if arr
+        for item in arr
+          if not @evaluate(item, operator, value) 
+            return false 
 
       true
 
     none:  (keyPath, operator, value) =>
       arr = @valueForKeyPath(keyPath)
-      for item in arr
-        if @evaluate(item, operator, value) 
-          return false 
+      if arr
+        for item in arr
+          if @evaluate(item, operator, value) 
+            return false 
 
       true
 
     sum: (keyPath, operator, value) =>
       arr = @valueForKeyPath(keyPath)
-      total = 0
-      total += item for item in arr
-      @evaluate(total, operator, value) 
+      if arr
+        total = 0
+        total += item for item in arr
+        @evaluate(total, operator, value) 
 
     min: (keyPath, operator, value) =>
       arr = @valueForKeyPath(keyPath)
-      min = null
-      min = item for item in arr when not min or min > item
-      @evaluate(min, operator, value) 
+      if arr
+        min = null
+        min = item for item in arr when not min or min > item
+        @evaluate(min, operator, value) 
 
     max: (keyPath, operator, value) =>
       arr = @valueForKeyPath(keyPath)
-      max = null
-      max = item for item in arr when not max or max < item
-      @evaluate(max, operator, value) 
+      if arr
+        max = null
+        max = item for item in arr when not max or max < item
+        @evaluate(max, operator, value) 
 
     count: (keyPath, operator, value) =>
-      arr = @valueForKeyPath(keyPath)
-      @evaluate(arr.length, operator, value) 
+      if arr
+        arr = @valueForKeyPath(keyPath)
+        @evaluate(arr.length, operator, value) 
 
     average: (keyPath, operator, value) =>
       arr = @valueForKeyPath(keyPath)
-      total = 0
-      total += item for item in arr
-      @evaluate(total/arr.length, operator, value) 
+      if arr
+        total = 0
+        total += item for item in arr
+        @evaluate(total/arr.length, operator, value) 
 
 
     evaluateConditionSet: (conditionSet) =>
