@@ -99,7 +99,7 @@
           @evaluatables[nextLevel].call()  
         else  
           ret = @kvc(key, @super)    
-          if ret and ret.constructor.name is "Array"
+          if ret and _isArray root
             _flatten(ret)
           else
             if not ret
@@ -119,12 +119,10 @@
         if levels.length is 1
           root
         else
-          switch root.constructor.name
-            when "Array"
-              (@kvc(nextLevel, item, lvl+1) for item in root)
-
-            when "Object"
-              @kvc nextLevel, root, lvl+1
+          if _isArray root 
+            (@kvc(nextLevel, item, lvl+1) for item in root)
+          else
+            @kvc nextLevel, root, lvl+1
       else
         null
 
@@ -144,7 +142,7 @@
         a > matchType(a,b)
 
       startsWith: (a,b) =>
-        if a.constructor.name is "Array"
+        if _isArray a
 
           if a.length > 0 
             if a[0] is matchType(a[0],b)
@@ -156,7 +154,7 @@
         return false
 
       contains: (a,b) =>
-        if a.constructor.name is "Array"
+        if _isArray a
           if (item for item in a when item is matchType(item,b)).length>0
             return true
         else
