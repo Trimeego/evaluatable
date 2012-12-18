@@ -93,15 +93,15 @@ var __hasProp = {}.hasOwnProperty,
   matchType = function(a, b) {
     var dt, n, ret;
     ret = b;
-    if (a && b && (a.constructor.name !== b.constructor.name)) {
-      switch (a.constructor.name) {
-        case "Number":
+    if (a && b && (Object.prototype.toString.call(a) !== Object.prototype.toString.call(b))) {
+      switch (Object.prototype.toString.call(a)) {
+        case "[object Number]":
           n = Number(b);
           if (n) {
             ret = n;
           }
           break;
-        case "Date":
+        case "[object Date]":
           dt = Date.parse(b);
           if (dt) {
             ret = new Date(dt);
@@ -367,8 +367,8 @@ var __hasProp = {}.hasOwnProperty,
 
     Evaluatable.prototype.count = function(keyPath, operator, value) {
       var arr;
+      arr = this.valueForKeyPath(keyPath);
       if (arr) {
-        arr = this.valueForKeyPath(keyPath);
         return this.evaluate(arr.length, operator, value);
       }
     };

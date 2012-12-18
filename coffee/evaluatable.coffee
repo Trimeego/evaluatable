@@ -65,13 +65,13 @@
 
   matchType = (a, b) ->
     ret = b
-    if a and b and (a.constructor.name isnt b.constructor.name)
-      switch a.constructor.name
-        when "Number"
+    if a and b and (Object.prototype.toString.call(a) isnt Object.prototype.toString.call(b))
+      switch Object.prototype.toString.call(a)
+        when "[object Number]"
           n = Number(b)
           if n
             ret = n
-        when "Date"
+        when "[object Date]"
           dt = Date.parse(b)
           if dt
             ret = new Date(dt)
@@ -231,8 +231,8 @@
         @evaluate(max, operator, value) 
 
     count: (keyPath, operator, value) =>
+      arr = @valueForKeyPath(keyPath)
       if arr
-        arr = @valueForKeyPath(keyPath)
         @evaluate(arr.length, operator, value) 
 
     average: (keyPath, operator, value) =>
